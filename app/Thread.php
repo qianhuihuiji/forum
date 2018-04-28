@@ -39,4 +39,9 @@ class Thread extends Model
     {
         return $this->belongsTo(User::class,'user_id'); // 使用 user_id 字段进行模型关联
     }
+
+    public function addReply($reply)
+    {
+        $this->replies()->create($reply);
+    }
 }
