@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ThreadsFilters;
 use App\Channel;
 use App\Thread;
 use Illuminate\Http\Request;
@@ -17,15 +18,12 @@ class ThreadsController extends Controller
      * Display a listing of the resource.
      *
      * @param Channel $channel
+     * @param ThreadsFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function index(Channel $channel)
+    public function index(Channel $channel,ThreadsFilters $filters)
     {
-        if($channel->exists){
-            $threads = $channel->threads()->latest()->get();
-        }else{
-            $threads = Thread::latest()->get();
-        }
+        $threads = $this->getThreads($channel, $filters);
 
         return view('threads.index',compact('threads'));
     }
@@ -107,5 +105,22 @@ class ThreadsController extends Controller
     public function destroy(Thread $thread)
     {
         //
+    }
+
+    /**
+     * @param Channel $channel
+     * @param ThreadsFilters $filters
+     * @return mixed
+     */
+    protected function getThreads(Channel $channel, ThreadsFilters $filters)
+    {
+        $threads = Thread::latest()->filter($filters);
+
+        if ($channel->exists) {
+            $threads->where('channel_id', $channel->id);
+        }
+
+        $threads = $threads->get();
+        return $threads;
     }
 }
