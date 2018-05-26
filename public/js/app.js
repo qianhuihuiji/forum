@@ -43726,7 +43726,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies___default.a }
+    props: ['initialRepliesCount'],
+
+    components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies___default.a },
+
+    data: function data() {
+        return {
+            repliesCount: this.initialRepliesCount
+        };
+    }
 });
 
 /***/ }),
@@ -43810,6 +43818,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         remove: function remove(index) {
             this.items.splice(index, 1);
+
+            this.$emit('removed');
 
             flash('Reply has been deleted!');
         }
