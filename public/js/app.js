@@ -43918,8 +43918,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -43937,6 +43935,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
+    computed: {
+        signIn: function signIn() {
+            return window.App.signIn;
+        },
+        canUpdate: function canUpdate() {
+            return this.data.user_id == window.App.user.id;
+        }
+    },
+
     methods: {
         update: function update() {
             axios.patch('/replies/' + this.data.id, {
@@ -43951,10 +43958,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.delete('/replies/' + this.data.id);
 
             this.$emit('deleted', this.data.id);
-
-            // $(this.$el).fadeOut(300, () => {
-            //     flash('Your reply has been deleted!');
-            // });
         }
     }
 });
@@ -44110,8 +44113,12 @@ var render = function() {
               attrs: { href: "/profiles/" + _vm.data.owner.name },
               domProps: { textContent: _vm._s(_vm.data.owner.name) }
             }),
-            _vm._v("said " + _vm._s(_vm.data.created_at) + "...\n            ")
-          ])
+            _vm._v(" said " + _vm._s(_vm.data.created_at) + "...\n            ")
+          ]),
+          _vm._v(" "),
+          _vm.signIn
+            ? _c("div", [_c("favorite", { attrs: { reply: _vm.data } })], 1)
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -44166,29 +44173,31 @@ var render = function() {
           : _c("div", { domProps: { textContent: _vm._s(_vm.body) } })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel-footer level" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-xs mr-1",
-            on: {
-              click: function($event) {
-                _vm.editing = true
-              }
-            }
-          },
-          [_vm._v("Edit")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-xs btn-danger mr-1",
-            on: { click: _vm.destroy }
-          },
-          [_vm._v("Delete")]
-        )
-      ])
+      _vm.canUpdate
+        ? _c("div", { staticClass: "panel-footer level" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-xs mr-1",
+                on: {
+                  click: function($event) {
+                    _vm.editing = true
+                  }
+                }
+              },
+              [_vm._v("Edit")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-xs btn-danger mr-1",
+                on: { click: _vm.destroy }
+              },
+              [_vm._v("Delete")]
+            )
+          ])
+        : _vm._e()
     ]
   )
 }

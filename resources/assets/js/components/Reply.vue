@@ -5,14 +5,12 @@
                 <h5 class="flex">
                     <a :href="'/profiles/'+data.owner.name"
                         v-text="data.owner.name">
-                    </a>said {{ data.created_at }}...
+                    </a> said {{ data.created_at }}...
                 </h5>
 
-                <!--@if(Auth::check())-->
-                <!--<div>-->
-                    <!--<favorite :reply="{{ $reply }}"></favorite>-->
-                <!--</div>-->
-                <!--@endif-->
+                <div v-if="signIn">
+                    <favorite :reply="data"></favorite>
+                </div>
             </div>
         </div>
 
@@ -30,7 +28,7 @@
         </div>
 
 
-        <div class="panel-footer level">
+        <div class="panel-footer level" v-if="canUpdate">
             <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
             <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
         </div>
@@ -53,6 +51,16 @@
             };
         },
 
+        computed: {
+            signIn() {
+                return window.App.signIn;
+            },
+
+            canUpdate() {
+                return this.data.user_id == window.App.user.id;
+            }
+        },
+
         methods:{
             update() {
                 axios.patch('/replies/' + this.data.id,{
@@ -68,10 +76,6 @@
                 axios.delete('/replies/' + this.data.id);
 
                 this.$emit('deleted',this.data.id);
-
-                // $(this.$el).fadeOut(300, () => {
-                //     flash('Your reply has been deleted!');
-                // });
             }
         }
     }
