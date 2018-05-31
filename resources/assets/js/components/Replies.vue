@@ -11,32 +11,37 @@
 <script>
     import Reply from './Reply';
     import NewReply from './NewReply';
+    import collection from '../mixins/Collection';
 
     export default {
-        props: ['data'],
-
         components: { Reply,NewReply },
+
+        mixins: [collection],
 
         data() {
             return {
-                items:this.data,
+                dataSet:false,
                 endpoint: location.pathname+'/replies'
             }
         },
 
-        methods: {
-            add(reply){
-                this.items.push(reply);
+        created() {
+          this.fetch();
+        },
 
-                this.$emit('added');
+        methods: {
+            fetch() {
+              axios.get(this.url())
+                  .then(this.refresh);
             },
 
-            remove(index) {
-                this.items.splice(index,1);
+            url() {
+              return `${location.pathname}/replies`;
+            },
 
-                this.$emit('removed');
-
-                flash('Reply has been deleted!');
+            refresh({data}) {
+                this.dataSet = data;
+                this.items = data.data;
             }
         }
     }

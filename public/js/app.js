@@ -17458,7 +17458,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(136);
-module.exports = __webpack_require__(186);
+module.exports = __webpack_require__(187);
 
 
 /***/ }),
@@ -60111,7 +60111,7 @@ var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(174)
 /* template */
-var __vue_template__ = __webpack_require__(185)
+var __vue_template__ = __webpack_require__(186)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -60159,6 +60159,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Reply___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Reply__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReply__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReply___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewReply__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_Collection__ = __webpack_require__(185);
 //
 //
 //
@@ -60169,35 +60170,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data'],
-
     components: { Reply: __WEBPACK_IMPORTED_MODULE_0__Reply___default.a, NewReply: __WEBPACK_IMPORTED_MODULE_1__NewReply___default.a },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_Collection__["a" /* default */]],
 
     data: function data() {
         return {
-            items: this.data,
+            dataSet: false,
             endpoint: location.pathname + '/replies'
         };
+    },
+    created: function created() {
+        this.fetch();
     },
 
 
     methods: {
-        add: function add(reply) {
-            this.items.push(reply);
-
-            this.$emit('added');
+        fetch: function fetch() {
+            axios.get(this.url()).then(this.refresh);
         },
-        remove: function remove(index) {
-            this.items.splice(index, 1);
+        url: function url() {
+            return location.pathname + '/replies';
+        },
+        refresh: function refresh(_ref) {
+            var data = _ref.data;
 
-            this.$emit('removed');
-
-            flash('Reply has been deleted!');
+            this.dataSet = data;
+            this.items = data.data;
         }
     }
 });
@@ -61048,6 +61053,35 @@ if (false) {
 
 /***/ }),
 /* 185 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    data: function data() {
+        return {
+            items: []
+        };
+    },
+
+
+    methods: {
+        add: function add(item) {
+            this.items.push(item);
+
+            this.$emit('added');
+        },
+        remove: function remove(index) {
+            this.items.splice(index, 1);
+
+            this.$emit('removed');
+
+            flash('Reply has been deleted!');
+        }
+    }
+});
+
+/***/ }),
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -61094,7 +61128,7 @@ if (false) {
 }
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
