@@ -30,8 +30,10 @@ class ParticipateInForumTest extends TestCase
         $this->post($thread->path() .'/replies',$reply->toArray());
 
         // Then their reply should be visible on the page
-        $this->get($thread->path())
-            ->assertSee($reply->body);
+//        $this->get($thread->path())
+//            ->assertSee($reply->body);
+
+        $this->assertDatabaseHas('replies',['body' => $reply->body]);
     }
 
     /** @test */
