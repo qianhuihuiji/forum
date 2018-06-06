@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\ThreadWasUpdated;
 use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,7 +29,7 @@ class Thread extends Model
 
     protected $guarded = [];
     protected $with = ['creator','channel'];
-    protected $appends = ['isSubsctibedTo'];
+    protected $appends = ['isSubscribedTo'];
 
     protected static function boot()
     {
@@ -61,7 +62,14 @@ class Thread extends Model
 
     public function addReply($reply)
     {
-        return $this->replies()->create($reply);
+        $thread = $this->replies()->create($reply);
+
+        // Prepare notifications for all subscribers
+        foreach ($this->subscriptions as $subscription) {
+            $subscription->user->notify(new ThreadWasUpdated($this,$reply));
+        }
+
+        return $thread;
     }
 
     public function scopeFilter($query,$filters)
