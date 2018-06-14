@@ -40,9 +40,15 @@ class RepliesController extends Controller
     {
         $this->authorize('update',$reply);
 
-        $this->validateReply();
+        try{
+            $this->validateReply();
 
-        $reply->update(request(['body']));
+            $reply->update(request(['body']));
+        }catch (\Exception $e){
+            return response(
+                'Sorry,your reply could not be saved at this time.',422
+            );
+        }
     }
 
     public function destroy(Reply $reply)

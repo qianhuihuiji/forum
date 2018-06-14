@@ -60731,6 +60731,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             axios.patch('/replies/' + this.data.id, {
                 body: this.body
+            }).catch(function (error) {
+                flash(error.response.data, 'danger');
             });
 
             this.editing = false;
