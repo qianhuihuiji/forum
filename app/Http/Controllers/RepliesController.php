@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePostForm;
+use App\Http\Requests\CreatePostRequest;
 use App\Reply;
 use App\Thread;
-use Illuminate\Support\Facades\Gate;
 
 class RepliesController extends Controller
 {
@@ -19,14 +18,8 @@ class RepliesController extends Controller
         return $thread->replies()->paginate(20);
     }
 
-    public function store($channelId,Thread $thread,CreatePostForm $form)
+    public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
-//        if(Gate::denies('create',new Reply)) {
-//            return response(
-//                'You are posting too frequently.Please take a break.:)',422
-//            );
-//        }
-
         return $reply = $thread->addReply([
                 'body' => request('body'),
                 'user_id' => auth()->id(),
