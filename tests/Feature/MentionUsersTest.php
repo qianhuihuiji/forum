@@ -27,7 +27,5 @@ class MentionUsersTest extends TestCase
         $this->json('post',$thread->path() . '/replies',$reply->toArray());
 
         $this->assertCount(1,$jane->notifications);
-
-
     }
 }

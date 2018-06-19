@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
+use App\Notifications\YouWereMentioned;
 use App\Reply;
 use App\Thread;
 use App\User;
@@ -36,7 +37,7 @@ class RepliesController extends Controller
             $user = User::whereName($name)->first();
 
             if($user){
-                $user->notify(new YouWereMentioned);
+                $user->notify(new YouWereMentioned($reply));
             }
         }
 
