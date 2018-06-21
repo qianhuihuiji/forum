@@ -19,7 +19,7 @@
                         </form>
                     @endcan
 
-                    <img src="/storage/{{ $profileUser->avatar_path }}" width="200" height="200">
+                    <img src="/storage/{{ $profileUser->avatar() }}" width="200" height="200">
                 </div>
 
                 @forelse($activities as $date => $activity)
