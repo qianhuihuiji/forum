@@ -16,7 +16,7 @@
 
         data() {
             return {
-                avatar:''
+                avatar:'/storage/'+this.user.avatar_path
             };
         },
 

@@ -60486,7 +60486,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            avatar: ''
+            avatar: '/storage/' + this.user.avatar_path
         };
     },
 
