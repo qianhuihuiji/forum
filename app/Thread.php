@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Thread extends Model
 {
-    use RecordsActivity,RecordsVisits;
+    use RecordsActivity;
 
     protected $guarded = [];
     protected $with = ['creator','channel'];
@@ -110,4 +110,8 @@ class Thread extends Model
         return $this->updated_at > cache($key);
     }
 
+    public function visits()
+    {
+        return new Visits($this);
+    }
 }
