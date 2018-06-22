@@ -4,7 +4,6 @@ namespace App;
 
 use App\Events\ThreadReceivedNewReply;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Thread
  *
@@ -24,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity,RecordsVisits;
 
     protected $guarded = [];
     protected $with = ['creator','channel'];
@@ -110,4 +109,5 @@ class Thread extends Model
 
         return $this->updated_at > cache($key);
     }
+
 }
