@@ -21,7 +21,6 @@ class CreateThreadsTest extends TestCase
             ->assertRedirect(route('login')); // 应用路由命名
     }
 
-    // 修改测试命名，更加辨识度
     /** @test */
     public function new_users_must_first_confirm_their_email_address_before_creating_threads()
     {
@@ -37,7 +36,6 @@ class CreateThreadsTest extends TestCase
             ->assertSessionHas('flash','You must first confirm your email address.');
     }
 
-    // 修改测试命名，更加辨识度
     /** @test */
     public function a_user_can_create_new_forum_threads()
     {
