@@ -21,11 +21,11 @@ class ThreadTest extends TestCase
     }
 
     /** @test */
-    function a_thread_can_make_a_string_path()
+    public function thread_has_a_path()
     {
         $thread = create('App\Thread');
 
-        $this->assertEquals("/threads/{$thread->channel->slug}/{$thread->id}",$thread->path());
+        $this->assertEquals("/threads/{$thread->channel->slug}/{$thread->slug}",$thread->path());
     }
 
     /** @test  */
@@ -134,16 +134,4 @@ class ThreadTest extends TestCase
             $this->assertFalse($thread->hasUpdatesFor($user));
         });
     }
-
-//    /** @test */
-//    public function a_thread_records_each_visit()
-//    {
-//        $thread = make('App\Thread',['id' => 1]);
-//
-//        $thread->visits()->reset();
-//        $this->assertSame(0,$thread->visits()->count());
-//
-//        $thread->visits()->record();
-//        $this->assertEquals(1,$thread->visits()->count());
-//    }
 }
