@@ -60987,24 +60987,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data'],
+    props: ['reply'],
 
     components: { Favorite: __WEBPACK_IMPORTED_MODULE_0__Favorite_vue___default.a },
 
     data: function data() {
         return {
             editing: false,
-            id: this.data.id,
-            body: this.data.body,
-            isBest: this.data.isBest,
-            reply: this.data
+            id: this.reply.id,
+            body: this.reply.body,
+            isBest: this.reply.isBest
         };
     },
 
 
     computed: {
         ago: function ago() {
-            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data.created_at).fromNow() + '...';
+            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.reply.created_at).fromNow() + '...';
         }
     },
 
@@ -61019,7 +61018,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         update: function update() {
-            axios.patch('/replies/' + this.data.id, {
+            axios.patch('/replies/' + this.reply.id, {
                 body: this.body
             }).catch(function (error) {
                 flash(error.response.data, 'danger');
@@ -61030,9 +61029,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             flash('Updated!');
         },
         destroy: function destroy() {
-            axios.delete('/replies/' + this.data.id);
+            axios.delete('/replies/' + this.id);
 
-            this.$emit('deleted', this.data.id);
+            this.$emit('deleted', this.id);
         },
         editReply: function editReply() {
             this.old_body_data = this.body;
@@ -61046,9 +61045,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         markBestReply: function markBestReply() {
             this.isBest = true;
 
-            axios.post('/replies/' + this.data.id + '/best');
+            axios.post('/replies/' + this.id + '/best');
 
-            window.events.$emit('best-reply-selected', this.data.id);
+            window.events.$emit('best-reply-selected', this.id);
         }
     }
 });
@@ -61473,15 +61472,15 @@ var render = function() {
         _c("div", { staticClass: "level" }, [
           _c("h5", { staticClass: "flex" }, [
             _c("a", {
-              attrs: { href: "/profiles/" + _vm.data.owner.name },
-              domProps: { textContent: _vm._s(_vm.data.owner.name) }
+              attrs: { href: "/profiles/" + _vm.reply.owner.name },
+              domProps: { textContent: _vm._s(_vm.reply.owner.name) }
             }),
             _vm._v(" said "),
             _c("span", { domProps: { textContent: _vm._s(_vm.ago) } })
           ]),
           _vm._v(" "),
           _vm.signedIn
-            ? _c("div", [_c("favorite", { attrs: { reply: _vm.data } })], 1)
+            ? _c("div", [_c("favorite", { attrs: { reply: _vm.reply } })], 1)
             : _vm._e()
         ])
       ]),
@@ -63498,7 +63497,7 @@ var render = function() {
           { key: reply.id },
           [
             _c("reply", {
-              attrs: { data: reply },
+              attrs: { reply: reply },
               on: {
                 deleted: function($event) {
                   _vm.remove(index)
