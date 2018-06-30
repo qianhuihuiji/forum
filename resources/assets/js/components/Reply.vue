@@ -30,13 +30,13 @@
         </div>
 
 
-        <div class="panel-footer level">
-            <div v-if="authorize('updateReply',reply)">
+        <div class="panel-footer level" v-if="authorize('owns',reply) || authorize('owns',reply.thread)">
+            <div v-if="authorize('owns',reply)">
                 <button class="btn btn-xs mr-1" @click="editReply">Edit</button>
                 <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
             </div>
 
-            <button class="btn btn-xs btn-default ml-a" @click="markBestReply" v-show="! isBest">Best Reply</button>
+            <button class="btn btn-xs btn-default ml-a" @click="markBestReply" v-if="authorize('owns',reply.thread)">Best Reply</button>
         </div>
     </div>
 </template>
