@@ -97,6 +97,14 @@ class ThreadsController extends Controller
         return view('threads.show',compact('thread'));
     }
 
+    public function update()
+    {
+        if (request()->has('locked')) {
+            if(! auth()->user()->isAdmin()) {
+                return response('',403);
+            }
+        }
+    }
 
     public function destroy($channel,Thread $thread)
     {
