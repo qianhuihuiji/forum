@@ -65,6 +65,13 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
+    public function a_thread_requires_recaptcha_verification()
+    {
+        $this->publishThread(['g-recaptcha-response' => 'test'])
+            ->assertSessionHasErrors('g-recaptcha-response');
+    }
+
+    /** @test */
     public function a_thread_requires_a_valid_channel()
     {
         factory('App\Channel',2)->create(); // 新建两个 Channel，id 分别为 1 跟 2
