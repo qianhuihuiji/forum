@@ -60772,6 +60772,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             repliesCount: this.thread.replies_count,
             locked: this.thread.locked,
             editing: false,
+            title: this.thread.title,
+            body: this.thread.body,
             form: {
                 title: this.thread.title,
                 body: this.thread.body
@@ -60794,6 +60796,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 body: this.form.body
             }).then(function () {
                 _this.editing = false;
+                _this.title = _this.form.title;
+                _this.body = _this.form.body;
 
                 flash('Your thread has been updated.');
             });

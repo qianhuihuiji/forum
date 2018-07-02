@@ -14,7 +14,6 @@
 
     <div class="panel-footer">
         <div class="level">
-            <button class="btn btn-xs level-item" @click="editing = true" v-show="! editing">Edit</button>
             <button class="btn btn-primary btn-xs level-item" @click="update">Update</button>
             <button class="btn btn-xs level-item" @click="editing = false">Cancel</button>
 
@@ -38,12 +37,12 @@
             <img src="/storage/{{ $thread->creator->avatar_path }}" alt="{{ $thread->creator->name }}" width="25" height="25" class="mr-1">
 
             <span class="flex">
-                <a href="{{ route('profile',$thread->creator) }}">{{ $thread->creator->name }}</a> posted: <span v-text="form.title"></span>
+                <a href="{{ route('profile',$thread->creator) }}">{{ $thread->creator->name }}</a> posted: <span v-text="title"></span>
             </span>
         </div>
     </div>
 
-    <div class="panel-body" v-text="form.body"></div>
+    <div class="panel-body" v-text="body"></div>
 
     <div class="panel-footer">
         <button class="btn btn-xs" @click="editing = true">Edit</button>

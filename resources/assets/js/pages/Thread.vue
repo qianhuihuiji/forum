@@ -12,6 +12,8 @@
                 repliesCount:this.thread.replies_count,
                 locked:this.thread.locked,
                 editing:false,
+                title:this.thread.title,
+                body:this.thread.body,
                 form:{
                     title:this.thread.title,
                     body:this.thread.body
@@ -32,6 +34,8 @@
                     body:this.form.body
                 }).then(() => {
                     this.editing = false;
+                    this.title = this.form.title;
+                    this.body = this.form.body;
 
                     flash('Your thread has been updated.');
                 });
