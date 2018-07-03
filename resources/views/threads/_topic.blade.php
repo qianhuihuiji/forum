@@ -15,7 +15,7 @@
     <div class="panel-footer">
         <div class="level">
             <button class="btn btn-primary btn-xs level-item" @click="update">Update</button>
-            <button class="btn btn-xs level-item" @click="editing = false">Cancel</button>
+            <button class="btn btn-xs level-item" @click="resetForm">Cancel</button>
 
             @can('update',$thread)
                 <form action="{{ $thread->path() }}" method="POST" class="ml-a">
@@ -44,7 +44,7 @@
 
     <div class="panel-body" v-text="body"></div>
 
-    <div class="panel-footer">
+    <div class="panel-footer" v-if="authorize('owns',thread)">
         <button class="btn btn-xs" @click="editing = true">Edit</button>
     </div>
 </div>
