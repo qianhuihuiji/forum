@@ -4,6 +4,8 @@ namespace App;
 
 use App\Events\ThreadReceivedNewReply;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
+
 /**
  * App\Thread
  *
@@ -23,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity,Searchable;
 
     protected $guarded = [];
     protected $with = ['creator','channel'];
