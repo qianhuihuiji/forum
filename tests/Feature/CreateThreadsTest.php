@@ -76,13 +76,13 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    public function a_thread_requires_recaptcha_verification()
-    {
-        unset(app()[Recaptcha::class]);
-
-        $this->publishThread(['g-recaptcha-response' => 'test'])
-            ->assertSessionHasErrors('g-recaptcha-response');
-    }
+//    public function a_thread_requires_recaptcha_verification()
+//    {
+//        unset(app()[Recaptcha::class]);
+//
+//        $this->publishThread(['g-recaptcha-response' => 'test'])
+//            ->assertSessionHasErrors('g-recaptcha-response');
+//    }
 
     /** @test */
     public function a_thread_requires_a_valid_channel()
